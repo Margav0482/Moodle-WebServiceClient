@@ -22,7 +22,7 @@ $MoodleAttendanceRest->setToken($attendancetoken);
 $MoodleAttendanceRest->setReturnFormat(MoodleRest::RETURN_JSON); //Returns everything in JSON format.
 $MoodleAttendanceRest->setDebug(); //For Debugging Purpose and better view of error logs.
 
-For fetching user id
+//For fetching user id
 $usernametosearch = "vrp"; //FRONT END TEAM INPUT
 $getUserID = $MoodleCoreRest->request('core_user_get_users_by_field', array('field' => 'username', 'values' => array($usernametosearch)));
 $userData = json_decode($getUserID, true);
