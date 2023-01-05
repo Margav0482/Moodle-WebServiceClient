@@ -59,8 +59,8 @@ $sessionid = $createSession["sessionid"]; //Important is session id, used for se
 //For changing attendance...
 //Present - Status ID: 21
 //Absent - Status ID: 22
-
-$changeattendance = $MoodleAttendanceRest->request('mod_attendance_update_user_status', array('sessionid' => $sessionid, 'studentid' => $fetchedUserID, 'takenbyid' => 326, 'statusid' => 22, 'statusset' => 21));
+$courseTakenByID = "326"; //ID OF THE ASIGNED TEACHER OF THE COURSE
+$changeattendance = $MoodleAttendanceRest->request('mod_attendance_update_user_status', array('sessionid' => $sessionid, 'studentid' => $fetchedUserID, 'takenbyid' => $courseTakenByID, 'statusid' => 22, 'statusset' => 21));
 
 // ^ This request is used for update attendance either absent or present on moodle.
 ```
