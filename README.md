@@ -22,6 +22,19 @@ $MoodleAttendanceRest->setToken($attendancetoken);
 $MoodleAttendanceRest->setReturnFormat(MoodleRest::RETURN_JSON); //Returns everything in JSON format.
 $MoodleAttendanceRest->setDebug(); //For Debugging Purpose and better view of error logs.
 
+//This will be used for login in student app. In login, it will match if the given input of username is existing in moodle or not. RETURNS BOOL!
+$usernameinput = "vrp"; //INPUT BY FRONT END TEAM
+$getUsername = $MoodleCoreRest->request('core_user_get_users_by_field', array('field' => 'username', 'values' => array($usernameinput)));
+$usernameData = json_decode($getUsername, true);
+$checkusername = false;
+if(!empty($usernameData)) { //Before checks, if array is empty or not. If it is empty, no use to go deeper inside the array.
+    $getUserUsername = $usernameData["0"]["username"]; //Fetching Username in fetched array.
+    if($getUserUsername == $usernameinput) { // MATCH CONDITION
+        $checkusername = true; //This means, the username exists in moodle and is allowed to go inside attendance.
+    }
+}
+//var_export($checkusername, true); //This is used to return bool in string format i.e TRUE/FALSE
+
 //For fetching user id
 $usernametosearch = "vrp"; //FRONT END TEAM INPUT
 $getUserID = $MoodleCoreRest->request('core_user_get_users_by_field', array('field' => 'username', 'values' => array($usernametosearch)));
