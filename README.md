@@ -28,9 +28,11 @@ $userid = 2; //FRONT END TEAM INPUT
 $facultyname = 'something'; //FRONT END TEAM INPUT
 $facloc = 'coordinateshere'; //FRONT END TEAM INPUT
 $sessionid = 'somesessionidhere'; //FRONT END TEAM INPUT
+$starttime = "timehere"; //FRONT END TEAM INPUT
+$endtime = "timehere"; //FRONT END TEAM INPUT
 
+$sendMessageArray = array('faculty' => $facultyname, 'facultyloc' => $facloc, 'sessionid'=> $sessionid, 'starttime'=>$starttime, 'exptime'=>$endtime); //Creating array of sending message, so it's easy to access in different app.
 
-$sendMessageArray = array('faculty' => $facultyname, 'facultyloc' => $facloc, 'sessionid'=> $sessionid); //Creating array of sending message, so it's easy to access in different app.
 $messageencoded = json_encode($sendMessageArray, JSON_FORCE_OBJECT); //Encoding Message in json format, and decode it when we accessing it.
 $sendMessage = $MoodleCoreRest->request('core_message_send_instant_messages', array('messages'=> array(array('touserid' => $userid, 'text' => $messageencoded))));
 $sentmsgdecode = json_decode($sendMessage);
