@@ -104,7 +104,7 @@ $attendanceid = createAttendance["attendanceid"];
 
 //$deleteAttendance = $MoodleAttendanceRest->request('mod_attendance_remove_attendance', array('attendanceid' => 10)); //Used for deleting attendace table, used for dev purpose only.
 
-$createSession = $MoodleAttendanceRest->request('mod_attendance_add_session', array('attendanceid' => $attendanceid));
+$createSession = $MoodleAttendanceRest->request('mod_attendance_add_session', array('attendanceid' => $attendanceid, 'sessiontime' => 'sessionstarttimestamphere'));
 $sessionid = $createSession["sessionid"]; //Important is session id, used for setting absent and present in attendance.
 
 
