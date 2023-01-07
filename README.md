@@ -22,6 +22,28 @@ $MoodleAttendanceRest->setToken($attendancetoken);
 $MoodleAttendanceRest->setReturnFormat(MoodleRest::RETURN_JSON); //Returns everything in JSON format.
 $MoodleAttendanceRest->setDebug(); //For Debugging Purpose and better view of error logs.
 
+
+//Used for passing the hidden information to every student which contains faculty location for condition match!
+$userid = 2; //FRONT END TEAM INPUT
+$facultyname = 'something'; //FRONT END TEAM INPUT
+$facloc = 'coordinateshere'; //FRONT END TEAM INPUT
+$sessionid = 'somesessionidhere'; //FRONT END TEAM INPUT
+
+
+$sendMessageArray = array('faculty' => $facultyname, 'facultyloc' => $facloc, 'sessionid'=> $sessionid); //Creating array of sending message, so it's easy to access in different app.
+$messageencoded = json_encode($sendMessageArray, JSON_FORCE_OBJECT); //Encoding Message in json format, and decode it when we accessing it.
+$sendMessage = $MoodleCoreRest->request('core_message_send_instant_messages', array('messages'=> array(array('touserid' => $userid, 'text' => $messageencoded))));
+$sentmsgdecode = json_decode($sendMessage);
+
+function getv($msg, $find){ //It is a function used to get value from the object.
+    return get_object_vars($msg[0])[$find];
+}
+
+$getMsgID = getv($sentmsgdecode, 'msgid'); //Must be saved.
+$getConvoID = getv($sentmsgdecode, 'conversationid'); //Must be saved.
+$getFromUserID = getv($sentmsgdecode, 'useridfrom'); //Must be saved.
+
+
 //This will be used for login in student app. In login, it will match if the given input of username is existing in moodle or not. RETURNS BOOL!
 $usernameinput = "vrp"; //INPUT BY FRONT END TEAM
 $getUsername = $MoodleCoreRest->request('core_user_get_users_by_field', array('field' => 'username', 'values' => array($usernameinput)));
