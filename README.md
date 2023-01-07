@@ -39,9 +39,25 @@ function getv($msg, $find){ //It is a function used to get value from the object
     return get_object_vars($msg[0])[$find];
 }
 
+function getsv($msg, $find){ //It is a function used to get value from the object.
+    return get_object_vars($msg)[$find];
+}
+
+
 $getMsgID = getv($sentmsgdecode, 'msgid'); //Must be saved.
 $getConvoID = getv($sentmsgdecode, 'conversationid'); //Must be saved.
 $getFromUserID = getv($sentmsgdecode, 'useridfrom'); //Must be saved.
+
+//For reading the message from the convo.
+$getMessage = $MoodleCoreRest->request('core_message_get_messages', array('useridto'=>$userid, 'type' => 'conversations', 'read'=> 2));
+$getMsgDecode = json_decode($getMessage);
+$getMsg = getsv($getMsgDecode, 'messages');
+$fullMessage = getv($getMsg, 'fullmessage');
+$trimFullMsg = trim($fullMessage, '{}'); //Triming { and } in the message
+$finalMsg = explode(',', $trimFullMsg); //Creating the string in array with seperator ","
+$faculty = $finalMsg[0]; //Returns "faculty":"something"
+$facultyloc = $finalMsg[1]; //Returns "facultyloc":"coordinateshere"
+$session = $finalMsg[2]; //Returns "sessionid":"somesessionidhere"
 
 
 //This will be used for login in student app. In login, it will match if the given input of username is existing in moodle or not. RETURNS BOOL!
