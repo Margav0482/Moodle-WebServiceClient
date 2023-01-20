@@ -1,7 +1,7 @@
 # Moodle-WebServiceClient
 PHP written code for creating attendance, session, and getting user information.
 
-## MAIN FUNCTION CODE:
+## Basic Functions Code:
 ```php
 require_once "MoodleRest.php"; //MoodleRest API
 
