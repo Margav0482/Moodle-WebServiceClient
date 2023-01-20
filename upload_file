@@ -1,0 +1,45 @@
+<?php
+ $domainname = 'http://202.131.126.214/';
+ $restformat = 'json';
+require_once('curl.php');
+$curl = new curl;
+$params = array(
+    'component' => 'user',
+    'filearea' => 'draft',
+    'itemid' => 0,
+    'filepath' => '/',
+    'filename' => 'moodleProfile.PNG',
+    'filecontent' => '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',
+    'contextlevel' => 'user',
+    'instanceid' => 2,
+);
+
+/// UPLOAD IMAGE - Moodle 3.10+ and later
+$functionname = 'core_files_upload';
+$serverurl = $domainname .'/webservice/rest/server.php' . '?wstoken=8d29dd97dd7c93b0e3cdd43d4b797c87' . '&wsfunction=' . $functionname;
+
+$restformat = ($restformat == 'json') ?
+'&moodlewsrestformat=' . $restformat : '';
+print_r($params);
+printf("\n");
+printf("\n");
+
+$resp = $curl->post($serverurl . $restformat, $params);
+$resps = json_decode($resp);
+
+print_r($resps);
+printf("\n");
+
+$newparams = array(
+    'draftitemid' => 661188863,
+    'userid' => 2
+);
+$restformat1 = ($restformat == 'json') ?
+'&moodlewsrestformat=' . $restformat1 : '';
+$setprofileserverurl = $domainname . '/webservice/server.php' . '?token=4f3c9f8f0404a7db50825391c295937e' . '&wsfunction=core_user_update_picture';
+$resp1 = $curl->post($setprofileserverurl . $restformat1, $newparams);
+$resps1 = json_decode($resp1);
+
+print_r($resps1);
+printf("\n");
+?>
