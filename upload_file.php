@@ -29,17 +29,4 @@ $resps = json_decode($resp);
 
 print_r($resps);
 printf("\n");
-
-$newparams = array(
-    'draftitemid' => 661188863,
-    'userid' => 2
-);
-$restformat1 = ($restformat == 'json') ?
-'&moodlewsrestformat=' . $restformat1 : '';
-$setprofileserverurl = $domainname . '/webservice/server.php' . '?token=4f3c9f8f0404a7db50825391c295937e' . '&wsfunction=core_user_update_picture';
-$resp1 = $curl->post($setprofileserverurl . $restformat1, $newparams);
-$resps1 = json_decode($resp1);
-
-print_r($resps1);
-printf("\n");
 ?>
